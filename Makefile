@@ -4,11 +4,11 @@
 NAME = push_swap
 
 
-SRC = main.c
+SRC = main.c tools.c
 
 SRC_TEST = maintester.c
 
-OBJ = main.o
+OBJ = main.o tools.o
 
 LIB = ./lib/libftprintf.a
 
