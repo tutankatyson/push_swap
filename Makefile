@@ -1,9 +1,12 @@
 
+# make -C <directorio donde hacer make"
 
 NAME = push_swap
 
 
 SRC = main.c
+
+SRC_TEST = maintester.c
 
 OBJ = main.o
 
@@ -24,12 +27,41 @@ $(OBJ):
 
 $(LIB):
 	
+ARG = 2 3 4 1 5
+
+FIGTH_TEST = 11 111 1 1111 111111 1111111 11111 11111111 \
+				2 22222222 2222 222 2222222 222222 22222 \
+			3333 333 3 33333 333333 12 3333333 33 \
+			4 44 444 4444 44444 444444 4444444 
+
+tmake testest0: fclean
+	gcc $(FLAGS) $(SRC_TEST) -o $(NAME)
+	./push_swap $(ARG) |./checker_Mac $(ARG)
+	./push_swap $(ARG)
+
 
 test: fclean $(NAME)
-	./$(NAME) 1 111111111 2 22222222 222222 33 1111 555555 555 5555555  
+	./$(NAME) $(FIGTH_TEST) 
 
-longtest: fclean $(NAME)
-	./$(NAME) 5 2 963258 101 102 111111111 11111110 11111119 995 996 103 109 2222 2225 2210 32566 665332 108 1257 107 106 105 1958 6565 104 111 222 333 666 555 444 888 999 632589 325896 258963 147852 478521 7852147 8521478 65247 3 4 1 6 9 7 8 10 11 1478 8521 4563 0 6321 6987 6547 8526 4852 9563 7415 15 96 85 74 25 63258 78965 78945 893232 78912 78936 78925 78914 78974 78985 78996 36 14 901 906 904 908 909 903 902 45 65 98 78 32 96325 12 155 379 698 541 258 369 147 
+test10: fclean $(NAME)
+	./$(NAME) 1 111111111 2 22222222 222222 33 1111 555555 555 5555555 
+
+test3: fclean $(NAME)
+	./$(NAME) 2 22 222 
+test31: fclean $(NAME)
+	./$(NAME) 2 222 22 
+test32: fclean $(NAME)
+	./$(NAME) 22 2 222 
+test33: fclean $(NAME)
+	./$(NAME) 22 222 2 
+test34: fclean $(NAME)
+	./$(NAME) 222 2 22
+test35: fclean $(NAME)
+	./$(NAME) 222 22 2
+
+
+test5: fclean $(NAME)
+	./$(NAME) 22 2222 2 22222 222  
 
 
 clean:
@@ -44,3 +76,10 @@ push:
 	git status
 	git commit -m "Last Commit"
 	git push
+
+
+pr:
+	./push_swap $(FIGTH_TEST)
+
+pelea:
+	./push_swap $(FIGTH_TEST) |./checker_Mac $(FIGTH_TEST)
