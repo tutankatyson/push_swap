@@ -5,4 +5,41 @@ NAME = push_swap
 
 SRC = main.c
 
+OBJ = main.o
 
+LIB = ./lib/libftprintf.a
+
+FLAGS = -Wall -Wextra -Werror
+
+
+all: $(NAME)
+
+$(NAME):$(OBJ) $(LIB)
+	@echo llamada a NAME:
+	gcc $(OBJ) $(LIB) -o $(NAME)
+
+$(OBJ):
+	@echo llamada a OBJ:
+	gcc $(FLAGS) -c $(SRC)
+
+$(LIB):
+	
+
+test: fclean $(NAME)
+	./$(NAME) 1 111111111 2 22222222 222222 33 1111 555555 555 5555555  
+
+longtest: fclean $(NAME)
+	./$(NAME) 5 2 963258 101 102 111111111 11111110 11111119 995 996 103 109 2222 2225 2210 32566 665332 108 1257 107 106 105 1958 6565 104 111 222 333 666 555 444 888 999 632589 325896 258963 147852 478521 7852147 8521478 65247 3 4 1 6 9 7 8 10 11 1478 8521 4563 0 6321 6987 6547 8526 4852 9563 7415 15 96 85 74 25 63258 78965 78945 893232 78912 78936 78925 78914 78974 78985 78996 36 14 901 906 904 908 909 903 902 45 65 98 78 32 96325 12 155 379 698 541 258 369 147 
+
+
+clean:
+	rm -f $(OBJ)
+
+fclean:clean
+	rm -f $(NAME)
+
+push:
+	git add .
+	git status
+	git commit -m "Last Commit"
+	git push

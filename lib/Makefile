@@ -6,7 +6,7 @@
 #    By: jorsanch <jorsanch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 18:15:47 by jorsanch          #+#    #+#              #
-#    Updated: 2022/11/03 13:30:27 by jorsanch         ###   ########.fr        #
+#    Updated: 2022/12/12 20:24:12 by jorsanch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 	  ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c \
 	  ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c \
 	  ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c ft_putnbrbase.c \
-	  ft_uitoa.c ft_flags.c ft_magic.c ft_printf.c ft_printtools.c
+	  ft_uitoa.c
 
 FLAGS = -Wall -Werror -Wextra
 
