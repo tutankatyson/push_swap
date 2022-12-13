@@ -128,6 +128,33 @@ int PUSH_SWAP(my_stack *a, my_stack *b)
 	return 0;
 
 }
+
+int one_stack(my_stack *a, my_stack *b)
+{
+	int cont = 0;
+	int end = 0;
+
+	while (!end)
+	{
+		if()
+		
+		
+
+
+
+	}
+	
+
+	checkp(a);
+	printf(YELLOW"\n - PUSH_SWAP - ");
+	printf("CONTADOR: %i "RESET,cont);
+	return 0;
+
+}
+
+
+
+
 /** * * * * A L G O R I T M O S * * * * **/
 
 int algoritmo1(my_stack *sta, my_stack *stb)
