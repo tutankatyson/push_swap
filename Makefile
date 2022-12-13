@@ -27,17 +27,21 @@ $(OBJ):
 
 $(LIB):
 	
-ARG = 2 3 4 1 5
+TEST = 2 3 4 1 5
 
 FIGTH_TEST = 11 111 1 1111 111111 1111111 11111 11111111 \
 				2 22222222 2222 222 2222222 222222 22222 \
 			3333 333 3 33333 333333 12 3333333 33 \
 			4 44 444 4444 44444 444444 4444444 
 
+FT = 11 111 1 1111 111111 1111111 11111 11111111 \
+				2 22222222 2222 222 2222222 222222 22222 \
+
+
 tmake testest0: fclean
 	gcc $(FLAGS) $(SRC_TEST) -o $(NAME)
-	./push_swap $(ARG) |./checker_Mac $(ARG)
-	./push_swap $(ARG)
+	./push_swap $(TEST) |./checker_Mac $(TEST)
+	./push_swap $(TEST)
 
 
 test: fclean $(NAME)

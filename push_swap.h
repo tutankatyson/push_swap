@@ -6,14 +6,16 @@
 /*   By: jorsanch <jorsanch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:13:40 by jorsanch          #+#    #+#             */
-/*   Updated: 2022/12/13 21:23:21 by jorsanch         ###   ########.fr       */
+/*   Updated: 2022/12/13 21:57:48 by jorsanch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-#include "push_swap.h"
+#include "libft.h"
+
+/*********COLORES**********/
 
 #define RED     "\x1b[31m"
 #define GREEN   "\x1b[32m"
@@ -23,7 +25,7 @@
 #define CYAN    "\x1b[36m"
 #define RESET   "\x1b[0m"
 
-
+/********ESTRUCTURAS*******/
 
 typedef struct mi_stack
 {
@@ -33,6 +35,8 @@ typedef struct mi_stack
 	char	ch;
 }					my_stack;
 
+/********OPERACIONES*******/
+
 void swap(my_stack *st);
 void rotate(my_stack *st);
 void reverse(my_stack *st);
@@ -41,17 +45,23 @@ void rr(my_stack *sta, my_stack *stb);
 void rrr(my_stack *sta, my_stack *stb);
 int push(my_stack *sta, my_stack *stb);
 
+/********TOOLS*******/
+
 int	ft_init(my_stack *stack,int argc,char **argv);
 
 int ft_max(my_stack *st);
 int ft_min(my_stack *st);
 int	ft_isorder(my_stack *st);
 int	ft_isrevorder(my_stack *st);
-
 int check(my_stack *st);
+
+/********MONITOR*******/
+
 int checkp(my_stack *st);
 int print(my_stack *a, my_stack *b);
 void status(my_stack *st);
+
+/********BASIC ALGORHIMS*******/
 
 int algoritmo1(my_stack *sta, my_stack *stb);
 int algoritmo1_1(my_stack *sta, my_stack *stb);
@@ -59,11 +69,18 @@ int algoritmo2(my_stack *sta, my_stack *stb);
 int algoritmo2_1(my_stack *sta, my_stack *stb);
 int ordena3(my_stack *st);
 int push_all(my_stack *sta, my_stack *stb);
+int p_s(my_stack *a, my_stack *b);
+int push_swap_up(my_stack *a, my_stack *b);
+int push_swap_down(my_stack *a, my_stack *b);
+int ps_all_up(my_stack *a, my_stack *b);
+int ps_all_down(my_stack *a, my_stack *b);
 
+
+/********FULL ALGORHIMS*******/
 
 int rollup_b_pushall(my_stack *a, my_stack *b);
 int rollup_b_pushall_2(my_stack *a, my_stack *b);
-
+int PUSH_SWAP(my_stack *a, my_stack *b);
 
 
 #endif

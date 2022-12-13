@@ -6,7 +6,7 @@
 /*   By: jorsanch <jorsanch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:11:33 by jorsanch          #+#    #+#             */
-/*   Updated: 2022/12/13 21:17:29 by jorsanch         ###   ########.fr       */
+/*   Updated: 2022/12/13 21:37:50 by jorsanch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ int checkp(my_stack *st)
 	printf(GREEN"\n check OK"RESET);
 	return 1;
 }
+
+
+/** * * * * B A S I C A S * * * * **/
 
 /*swap*/
 

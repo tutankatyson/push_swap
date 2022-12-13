@@ -18,6 +18,7 @@ int main(int argc, char **argv)
 
 	my_stack a, b;
 	my_stack a1, b1;
+	my_stack a2, b2;
 
 	int cont = 0;
 
@@ -34,6 +35,12 @@ int main(int argc, char **argv)
 	ft_init(&b, argc, NULL);
 	ft_init(&a1, argc, argv);
 	ft_init(&b1, argc, NULL);
+	ft_init(&a2, argc, argv);
+	ft_init(&b2, argc, NULL);
+
+
+//	cont = cont + rollup_b_pushall_2(&a1,&b1);
+
 
 
 //	push(&b,&a);
@@ -43,14 +50,18 @@ int main(int argc, char **argv)
 //	printf(GREEN"ORDER"RESET);
 
 
-//	ft_max(&a);
-//	ft_min(&a);
-
+//	print(&a,&b);
 
 	cont = cont + rollup_b_pushall(&a,&b);
 	cont = cont + rollup_b_pushall_2(&a1,&b1);
+	PUSH_SWAP(&a2,&b2);
 
 
+//	print(&a,&b);
+//	print(&a1,&b1);
+
+
+//	print(&a1,&b1);
 
 
 
@@ -59,6 +70,7 @@ int main(int argc, char **argv)
 
 
 	checkp(&a);
+
 
 	printf("\nCONTADOR: %i  SOBRE: %i",cont,argc-1);
 
@@ -94,6 +106,28 @@ int rollup_b_pushall_2(my_stack *a, my_stack *b)
 	return cont;
 }
 
+int PUSH_SWAP(my_stack *a, my_stack *b)
+{
+	int cont = 0;
+	int end = 0;
+	while (!end)
+	{
+		cont = cont + ps_all_up(a,b);
+		cont = cont + ps_all_down(b,a);
+		if(check(a)){
+			checkp(a);
+			printf(YELLOW"\n - PUSH_SWAP - ");
+			printf("CONTADOR: %i "RESET,cont);
+			return cont;
+		}
+
+		if(cont > 10000)
+			end = 1;
+	}
+	
+	return 0;
+
+}
 /** * * * * A L G O R I T M O S * * * * **/
 
 int algoritmo1(my_stack *sta, my_stack *stb)
@@ -241,6 +275,69 @@ int push_all(my_stack *sta, my_stack *stb)
 		push(sta,stb);
 	}
 	
+	return cont;
+}
+
+int p_s(my_stack *a, my_stack *b)
+{
+	push(b,a);
+	swap(b);
+	return 2;
+}
+
+int push_swap_up(my_stack *a, my_stack *b)
+{
+	push(b,a);
+	if(b->stack[0] < b->stack[1])
+	{
+		swap(b);
+		return 2;
+	}
+	return 1;
+}
+
+int push_swap_down(my_stack *a, my_stack *b)
+{
+	push(b,a);
+	if(b->stack[0] > b->stack[1])
+	{
+		swap(b);
+		return 2;
+	}
+	return 1;
+}
+
+int ps_all_down(my_stack *a, my_stack *b)
+{
+	int cont = 0;
+
+	while (a->last > -1)
+	{
+		push(b,a);
+		cont++;
+		if(b->stack[0] > b->stack[1])
+		{
+			swap(b);
+			cont++;
+		}
+	}
+	return cont;
+}
+
+int ps_all_up(my_stack *a, my_stack *b)
+{
+	int cont = 0;
+
+	while (a->last > -1)
+	{
+		push(b,a);
+		cont++;
+		if(b->stack[0] < b->stack[1])
+		{
+			swap(b);
+			cont++;
+		}
+	}
 	return cont;
 }
 
