@@ -34,6 +34,7 @@ longtest: fclean $(NAME)
 
 clean:
 	rm -f $(OBJ)
+	rm -f ./lib/*.o
 
 fclean:clean
 	rm -f $(NAME)
