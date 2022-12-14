@@ -12,6 +12,7 @@
 
 #include "push_swap.h"
 
+int one_stack(my_stack *a);
 
 int main(int argc, char **argv)
 {
@@ -54,7 +55,9 @@ int main(int argc, char **argv)
 
 	cont = cont + rollup_b_pushall(&a,&b);
 	cont = cont + rollup_b_pushall_2(&a1,&b1);
-	PUSH_SWAP(&a2,&b2);
+	PUSH_SWAP(&a,&b2);
+	one_stack(&a2);
+
 
 
 //	print(&a,&b);
@@ -129,19 +132,34 @@ int PUSH_SWAP(my_stack *a, my_stack *b)
 
 }
 
-int one_stack(my_stack *a, my_stack *b)
+int one_stack(my_stack *a)
 {
 	int cont = 0;
 	int end = 0;
 
 	while (!end)
 	{
-		if()
-		
-		
-
-
-
+		if(check(a))
+				return cont;
+		if(a->stack[0] > a->stack[1])
+		{
+			swap(a);
+			cont++;
+			if(ft_isorder(a))
+			{
+				while(!check(a))
+				{
+					rotate(a);
+					cont++;
+				}
+				end = 1;
+			}
+		}
+		else
+		{
+			rotate(a);
+			cont++;
+		}
 	}
 	
 

@@ -3,7 +3,6 @@
 
 NAME = push_swap
 
-
 SRC = main.c tools.c
 
 SRC_TEST = maintester.c
