@@ -6,7 +6,7 @@
 /*   By: jorsanch <jorsanch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:13:40 by jorsanch          #+#    #+#             */
-/*   Updated: 2022/12/13 22:33:39 by jorsanch         ###   ########.fr       */
+/*   Updated: 2022/12/14 18:18:19 by jorsanch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int push_swap_up(my_stack *a, my_stack *b);
 int push_swap_down(my_stack *a, my_stack *b);
 int ps_all_up(my_stack *a, my_stack *b);
 int ps_all_down(my_stack *a, my_stack *b);
+int swap_ordena(my_stack *st);
+
 
 
 /********FULL ALGORHIMS*******/

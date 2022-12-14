@@ -23,6 +23,9 @@ int main(int argc, char **argv)
 
 	int cont = 0;
 
+	cont++;
+	cont--;
+
 	/*Control de errores*/
 
     if(argc == 1 || !argv){
@@ -53,10 +56,10 @@ int main(int argc, char **argv)
 
 //	print(&a,&b);
 
-	cont = cont + rollup_b_pushall(&a,&b);
-	cont = cont + rollup_b_pushall_2(&a1,&b1);
-	PUSH_SWAP(&a,&b2);
-	one_stack(&a2);
+	rollup_b_pushall(&a,&b);
+	rollup_b_pushall_2(&a1,&b1);
+	PUSH_SWAP(&a2,&b2);
+//	one_stack(&a2);
 
 
 
@@ -72,7 +75,7 @@ int main(int argc, char **argv)
 
 
 
-	checkp(&a);
+//	checkp(&a);
 
 
 	printf("\nCONTADOR: %i  SOBRE: %i",cont,argc-1);
@@ -99,8 +102,13 @@ int rollup_b_pushall_2(my_stack *a, my_stack *b)
 {
 	int cont = 0;
 
+	print(a,b);
 	cont = cont + algoritmo2_1(a,b);
+
+	print(a,b);
 	cont = cont + push_all(a,b);
+	print(a,b);
+
 
 	checkp(a);
 	printf(YELLOW"\n - rollup_b_pushall_2 - ");
@@ -123,9 +131,6 @@ int PUSH_SWAP(my_stack *a, my_stack *b)
 			printf("CONTADOR: %i "RESET,cont);
 			return cont;
 		}
-
-		if(cont > 10000)
-			end = 1;
 	}
 	
 	return 0;
@@ -144,12 +149,14 @@ int one_stack(my_stack *a)
 		if(a->stack[0] > a->stack[1])
 		{
 			swap(a);
+			print(a,a);
 			cont++;
 			if(ft_isorder(a))
 			{
 				while(!check(a))
 				{
 					rotate(a);
+					print(a,a);
 					cont++;
 				}
 				end = 1;
@@ -158,15 +165,17 @@ int one_stack(my_stack *a)
 		else
 		{
 			rotate(a);
+			print(a,a);
 			cont++;
 		}
+	
 	}
 	
 
 	checkp(a);
 	printf(YELLOW"\n - PUSH_SWAP - ");
 	printf("CONTADOR: %i "RESET,cont);
-	return 0;
+	return cont;
 
 }
 
@@ -251,8 +260,8 @@ int algoritmo1_1(my_stack *sta, my_stack *stb)
 
 int algoritmo2_1(my_stack *sta, my_stack *stb)
 {
-	int cont = 0;
-	int max;
+	int cont = 0;			//Toma el máximo o el mínimo y hace push al otr stack
+	int max;				//Si 		
 	int min;
 
 	max = ft_max(sta);
@@ -262,20 +271,20 @@ int algoritmo2_1(my_stack *sta, my_stack *stb)
 	{
 		if(sta->stack[0] == min)
 		{
-			push(stb,sta);
+			push(stb,sta);printf("\n---------------------> push");print(sta,stb);
 			cont++;
 			min = ft_min(sta);
 		}
 		else if(sta->stack[0] == max)
 		{
-			push(stb,sta);
-			if(stb->last > 1)
-				rotate(stb);
+			push(stb,sta);printf("\n---------------------> push");print(sta,stb);
+			if(stb->last > 1){
+				rotate(stb); printf("\n---------------------> rot");print(sta,stb);}
 			cont = cont + 2;
 			max = ft_max(sta);
 		}else
 		{
-			rotate(sta);
+			rotate(sta);printf("\n---------------------> rot");print(sta,stb);
 			cont++;
 		}
 	}
@@ -283,7 +292,7 @@ int algoritmo2_1(my_stack *sta, my_stack *stb)
 	{
 		rotate(stb);
 	}
-	
+	print(sta,stb);
 	//print(sta,stb);
 	return cont;
 }
@@ -508,3 +517,14 @@ int check(my_stack *st)
 	return 1;
 }
 
+int swap_ordena(my_stack *st)
+{
+	if(st->last < 2)
+		return 0;
+	if(st->stack[1] < st->stack[0])
+		return 1;
+	return 0;
+}
+
+
+//int rot_or_rev()

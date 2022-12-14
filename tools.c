@@ -6,7 +6,7 @@
 /*   By: jorsanch <jorsanch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:11:33 by jorsanch          #+#    #+#             */
-/*   Updated: 2022/12/13 21:37:50 by jorsanch         ###   ########.fr       */
+/*   Updated: 2022/12/14 17:16:50 by jorsanch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void swap(my_stack *st)
     st->stack[0] 	= 	st->stack[1];
     st->stack[1] 	= 	temp;
 	}
-    //printf("s%c\n",st->ch);
+//    printf("s%c\n",st->ch);
 }
 
 /*rotate*/
@@ -112,7 +112,7 @@ void rotate(my_stack *st)
 		}
 		st->stack[i - 1] = temp;
 	}
-    //printf("r%c\n",st->ch);
+//    printf("r%c\n",st->ch);
 }
 
 /*reverse*/
