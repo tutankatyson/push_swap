@@ -6,7 +6,7 @@
 /*   By: jorsanch <jorsanch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:11:33 by jorsanch          #+#    #+#             */
-/*   Updated: 2022/12/22 20:41:19 by jorsanch         ###   ########.fr       */
+/*   Updated: 2022/12/22 21:07:05 by jorsanch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -442,5 +442,7 @@ int push(my_stack *to, my_stack *from)
 	printf("p%c\n",to->ch);
 	return 1;
 }
+
+
 
 

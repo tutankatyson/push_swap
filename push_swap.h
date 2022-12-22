@@ -6,7 +6,7 @@
 /*   By: jorsanch <jorsanch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:13:40 by jorsanch          #+#    #+#             */
-/*   Updated: 2022/12/22 18:48:47 by jorsanch         ###   ########.fr       */
+/*   Updated: 2022/12/22 21:18:42 by jorsanch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,10 @@ int rollup_b_pushall(my_stack *a, my_stack *b);
 int rollup_b_pushall_2(my_stack *a, my_stack *b);
 int rollup_b_pushall_3(my_stack *a, my_stack *b);
 int PUSH_SWAP(my_stack *a, my_stack *b);
+
+
+
+void alg_1_0(my_stack *a, my_stack *b);
 
 
 #endif

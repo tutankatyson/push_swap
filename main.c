@@ -43,9 +43,7 @@ int main(int argc, char **argv)
 
 /* algoritmo dos mitades */
 
-	pasa_media(&a,&b);
-	algoritmo2_2(&a,&b);
-	algoritmo1_2(&b,&a);
+	alg_1_0(&a,&b);
 
 
 //	rev_swap(&a, &b, 500);
@@ -65,8 +63,8 @@ int main(int argc, char **argv)
 
 //	rollup_b_pushall(&a,&b);					//(100)1500
 //	rollup_b_pushall_2(&a,&b);					//(100)1500
-//	rollup_b_pushall_3(&a,&b);					//(20)90 (100)1500
-//	PUSH_SWAP(&a,&b);
+//	rollup_b_pushall_3(&a,&b);					//(20)90 (100)1500 (1000)110000
+//	PUSH_SWAP(&a,&b);							//(100) 7000
 
 
 
@@ -143,17 +141,16 @@ int rollup_b_pushall_3(my_stack *a, my_stack *b)
 
 int PUSH_SWAP(my_stack *a, my_stack *b)
 {
-	int cont = 0;
 	int end = 0;
 	while (!end)
 	{
-		cont = cont + ps_all_up(a,b);
-		cont = cont + ps_all_down(b,a);
+		ps_all_up(a,b);
+		ps_all_down(b,a);
 		if(check(a)){
 //			checkp(a);
 //			printf(YELLOW"\n - PUSH_SWAP - ");
 //			printf("CONTADOR: %i "RESET,cont);
-			return cont;
+			return 0;
 		}
 	}
 	
@@ -352,7 +349,7 @@ int algoritmo1_2(my_stack *sta, my_stack *stb)
 		{
 			push(stb,sta);					//printf("\n---------------------> push");print(sta,stb);
 			if(stb->last > 0)
-				rotate(stb);				//printf("\n---------------------> rot");print(sta,stb);}
+				rr(stb,sta);				//printf("\n---------------------> rot");print(sta,stb);}
 			min = ft_min(sta);
 		}else								//Busca max y min y va a por el más cercano
 		{
@@ -434,10 +431,7 @@ int algoritmo2_2(my_stack *sta, my_stack *stb)
 
 		}
 	}
-	while (stb->stack[0] < stb->stack[stb->last])
-	{
-		rotate(stb);
-	}
+
 	//print(sta,stb);
 	//print(sta,stb);
 	return 0;
@@ -594,19 +588,16 @@ int ps_all_down(my_stack *a, my_stack *b)
 
 int ps_all_up(my_stack *a, my_stack *b)
 {
-	int cont = 0;
+
+
 
 	while (a->last > -1)
 	{
 		push(b,a);
-		cont++;
 		if(b->stack[0] < b->stack[1])
-		{
 			swap(b);
-			cont++;
-		}
 	}
-	return cont;
+	return 0;
 }
 
 int push_swap_n_down(int n, my_stack *origin, my_stack *destiny)
@@ -661,9 +652,7 @@ int ft_media(my_stack *a)
 	int media;
 
 	media = (ft_max(a) - ft_min(a)) / (a->last + 1);
-	printf("\nMedia:%i\n",media);
-	printf("\nmax:%i\n",ft_max(a));
-	printf("\nmin:%i\n",ft_min(a));
+
 	return(media);
 }
 
