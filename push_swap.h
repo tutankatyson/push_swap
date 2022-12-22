@@ -6,7 +6,7 @@
 /*   By: jorsanch <jorsanch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:13:40 by jorsanch          #+#    #+#             */
-/*   Updated: 2022/12/14 18:18:19 by jorsanch         ###   ########.fr       */
+/*   Updated: 2022/12/22 16:47:23 by jorsanch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,21 @@
 
 typedef struct mi_stack
 {
-	int		size;
-	int     last;
     int     *stack;
 	char	ch;
+	int		size;
+	int     last;
+
+	int 	max;
+	int 	min;
+	int 	dispersión;
+
 }					my_stack;
+
+
+void rotoswap(my_stack *a, int ciclos);
+
+
 
 /********OPERACIONES*******/
 
@@ -43,17 +53,21 @@ void reverse(my_stack *st);
 void ss(my_stack *sta, my_stack *stb);
 void rr(my_stack *sta, my_stack *stb);
 void rrr(my_stack *sta, my_stack *stb);
-int push(my_stack *sta, my_stack *stb);
+int push(my_stack *to, my_stack *from);
 
 /********TOOLS*******/
 
 int	ft_init(my_stack *stack,int argc,char **argv);
-
 int ft_max(my_stack *st);
 int ft_min(my_stack *st);
+int ft_find_max(my_stack *st);
+int ft_find_min(my_stack *st);
 int	ft_isorder(my_stack *st);
 int	ft_isrevorder(my_stack *st);
 int check(my_stack *st);
+int abs(int num);
+void dispersion(my_stack *st);
+
 
 /********MONITOR*******/
 
@@ -67,6 +81,7 @@ int algoritmo1(my_stack *sta, my_stack *stb);
 int algoritmo1_1(my_stack *sta, my_stack *stb);
 int algoritmo2(my_stack *sta, my_stack *stb);
 int algoritmo2_1(my_stack *sta, my_stack *stb);
+int algoritmo2_2(my_stack *sta, my_stack *stb);
 int ordena3(my_stack *st);
 int push_all(my_stack *sta, my_stack *stb);
 int p_s(my_stack *a, my_stack *b);
@@ -75,13 +90,14 @@ int push_swap_down(my_stack *a, my_stack *b);
 int ps_all_up(my_stack *a, my_stack *b);
 int ps_all_down(my_stack *a, my_stack *b);
 int swap_ordena(my_stack *st);
-
-
+int push_swap_n_down(int n, my_stack *origin, my_stack *destiny);
+int dealer(int n, my_stack *a, my_stack *b);
 
 /********FULL ALGORHIMS*******/
 
 int rollup_b_pushall(my_stack *a, my_stack *b);
 int rollup_b_pushall_2(my_stack *a, my_stack *b);
+int rollup_b_pushall_3(my_stack *a, my_stack *b);
 int PUSH_SWAP(my_stack *a, my_stack *b);
 
 
@@ -96,17 +112,9 @@ int PUSH_SWAP(my_stack *a, my_stack *b);
 312..				s<s>	132..	32..1	23..1	123..
 321..				s<s>s	231..	31..2	13..2	213..	123..
 
-****** ** ** * * * O R D E N A T O R I A   D E   3 * * * ** ** *******************
 
-123..	OK
-132..		
-213..				
-231..			
-312..				
-321..				
 
 ****** ** ** * * * C O M B I N A T O R I A   D E   4 * * * ** ** *******************
-
 		<		>		s
 1234	2341 	4123	2134		OK	     º1	  º2   º3	º4   º5   º6    º7    
 1243								>>s>> 	2341 3412 4312 3124 1234

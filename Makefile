@@ -30,8 +30,8 @@ TEST_5 = 1 5 2 4 3
 
 FIGTH_TEST = 11 111 1 1111 111111 1111111 11111 11111111 \
 				2 22222222 2222 222 2222222 222222 22222 \
-			3333 333 3 33333 333333 12 3333333 33 \
-			4 44 444 4444 44444 444444 4444444 
+				3333 333 3 33333 333333 12 3333333 33 \
+				4 44 444 4444 44444 444444 4444444 
 
 TEST_100 = 	19 45 21 72 53 76 78 7 84 40 \
 			65 44 18 9 37 90 62 63 6 41 \
@@ -47,6 +47,8 @@ TEST_100 = 	19 45 21 72 53 76 78 7 84 40 \
 
 FT = 11 111 1 1111 111111 1111111 11111 11111111 \
 				2 22222222 2222 222 2222222 222222 22222 \
+
+FT2 = 0 9 8 1 2 7 3 4 6 5
 
 
 test0: fclean
@@ -97,3 +99,18 @@ pr:
 
 pelea:
 	./push_swap $(FIGTH_TEST) |./checker_Mac $(FIGTH_TEST)
+
+py10: fclean $(NAME)
+	python3 python_visualizer.py `ruby -e "puts (-4..5).to_a.shuffle.join(' ')"`
+
+py20: fclean $(NAME)
+	python3 python_visualizer.py `ruby -e "puts (-9..10).to_a.shuffle.join(' ')"`
+
+py100: fclean $(NAME)
+	python3 python_visualizer.py `ruby -e "puts (-49..50).to_a.shuffle.join(' ')"`
+
+py1000: fclean $(NAME)
+	python3 python_visualizer.py `ruby -e "puts (-499..500).to_a.shuffle.join(' ')"`
+
+py10000: fclean $(NAME)
+	python3 python_visualizer.py `ruby -e "puts (-4999..5000).to_a.shuffle.join(' ')"`

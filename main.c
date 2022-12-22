@@ -12,19 +12,15 @@
 
 #include "push_swap.h"
 
-int one_stack(my_stack *a);
+int dealer0(int n, my_stack *a, my_stack *b);
+void pasa_media(my_stack *a, my_stack *b);
+
 
 int main(int argc, char **argv)
 {
 
 	my_stack a, b;
-	my_stack a1, b1;
-	my_stack a2, b2;
 
-	int cont = 0;
-
-	cont++;
-	cont--;
 
 	/*Control de errores*/
 
@@ -33,53 +29,50 @@ int main(int argc, char **argv)
 		return 0;
 	}
 
+//	printf(CYAN"\n  NUMERO DE ELEMENTOS: %i"RESET,argc-1);
+
     /*inicializar*/
 	
 	ft_init(&a, argc, argv);
 	ft_init(&b, argc, NULL);
-	ft_init(&a1, argc, argv);
-	ft_init(&b1, argc, NULL);
-	ft_init(&a2, argc, argv);
-	ft_init(&b2, argc, NULL);
+
+//	dispersion(&a);
+//	rotoswap(&a,500);
+//	dispersion(&a);
+
+	pasa_media(&a,&b);
 
 
-//	cont = cont + rollup_b_pushall_2(&a1,&b1);
+//	dealer0(50,&a,&b);		//82
+//	dealer(500,&a,&b);		//87
+
+
+
+
+
+
+//	rollup_b_pushall(&a,&b);					//(100)1500
+//	rollup_b_pushall_2(&a,&b);					//(100)1500
+//	rollup_b_pushall_3(&a,&b);					//(20)90 (100)1500
+//	PUSH_SWAP(&a,&b);
+
+
+
+
 
 
 
 //	push(&b,&a);
-
 //	print(&a,&b);
 //	print(&a1,&b1);
 //	printf(GREEN"ORDER"RESET);
-
-
 //	print(&a,&b);
-
-	rollup_b_pushall(&a,&b);
-	rollup_b_pushall_2(&a1,&b1);
-	PUSH_SWAP(&a2,&b2);
+//	
 //	one_stack(&a2);
-
-
-
 //	print(&a,&b);
 //	print(&a1,&b1);
-
-
 //	print(&a1,&b1);
-
-
-
-
-
-
-
 //	checkp(&a);
-
-
-	printf("\nCONTADOR: %i  SOBRE: %i",cont,argc-1);
-
 	return 0;
 }
 
@@ -102,19 +95,38 @@ int rollup_b_pushall_2(my_stack *a, my_stack *b)
 {
 	int cont = 0;
 
-	print(a,b);
+//	print(a,b);
 	cont = cont + algoritmo2_1(a,b);
 
-	print(a,b);
+//	print(a,b);
 	cont = cont + push_all(a,b);
-	print(a,b);
+//	print(a,b);
 
-
+	/*Resultados*/
 	checkp(a);
 	printf(YELLOW"\n - rollup_b_pushall_2 - ");
 	printf("CONTADOR: %i "RESET,cont);
 
 	return cont;
+}
+
+int rollup_b_pushall_3(my_stack *a, my_stack *b)
+{
+
+
+//	print(a,b);
+	algoritmo2_2(a,b);
+
+//	print(a,b);
+	push_all(a,b);
+//	print(a,b);
+
+	/*Resultados*/
+	checkp(a);
+
+
+
+	return 0;
 }
 
 int PUSH_SWAP(my_stack *a, my_stack *b)
@@ -126,9 +138,9 @@ int PUSH_SWAP(my_stack *a, my_stack *b)
 		cont = cont + ps_all_up(a,b);
 		cont = cont + ps_all_down(b,a);
 		if(check(a)){
-			checkp(a);
-			printf(YELLOW"\n - PUSH_SWAP - ");
-			printf("CONTADOR: %i "RESET,cont);
+//			checkp(a);
+//			printf(YELLOW"\n - PUSH_SWAP - ");
+//			printf("CONTADOR: %i "RESET,cont);
 			return cont;
 		}
 	}
@@ -247,6 +259,7 @@ int algoritmo1_1(my_stack *sta, my_stack *stb)
 		}
 		if(sta->stack[0] == min){
 			push(stb,sta);
+			cont++;
 			rotate(stb);
 			cont++;
 			max = ft_min(sta);
@@ -260,7 +273,7 @@ int algoritmo1_1(my_stack *sta, my_stack *stb)
 
 int algoritmo2_1(my_stack *sta, my_stack *stb)
 {
-	int cont = 0;			//Toma el máximo o el mínimo y hace push al otr stack
+	int cont = 0;			//Toma el máximo o el mínimo y hace push al otro stack
 	int max;				//Si 		
 	int min;
 
@@ -271,29 +284,166 @@ int algoritmo2_1(my_stack *sta, my_stack *stb)
 	{
 		if(sta->stack[0] == min)
 		{
-			push(stb,sta);printf("\n---------------------> push");print(sta,stb);
+			push(stb,sta);				
+						//	printf(CYAN"\n---------------------> push"RESET);print(sta,stb);
 			cont++;
 			min = ft_min(sta);
 		}
 		else if(sta->stack[0] == max)
 		{
-			push(stb,sta);printf("\n---------------------> push");print(sta,stb);
-			if(stb->last > 1){
-				rotate(stb); printf("\n---------------------> rot");print(sta,stb);}
+			push(stb,sta);			
+					//		printf(CYAN"\n---------------------> push"RESET);print(sta,stb);
+			if(stb->last > 1)
+			{
+				rotate(stb);
+						//	printf(MAGENTA"\n---------------------> rot B"RESET);print(sta,stb);
+			}
 			cont = cont + 2;
 			max = ft_max(sta);
-		}else
+		}
+		else
 		{
-			rotate(sta);printf("\n---------------------> rot");print(sta,stb);
+			rotate(sta);
+						//	printf(RED"\n---------------------> rot A"RESET);print(sta,stb);
 			cont++;
+		}
+	}
+	while (stb->stack[0] < stb->stack[stb->last])
+	{
+		cont++;
+		rotate(stb);
+	}
+//	print(sta,stb);
+	//print(sta,stb);
+	return cont;
+}
+
+int algoritmo2_2(my_stack *sta, my_stack *stb)
+{
+							//Toma el máximo o el mínimo y hace push al otro stack
+	int max;				//ahora toma el camino más corto para llegar al numero a cambiar		
+	int min;
+	int imin;
+	int imax;
+
+	max = ft_max(sta);
+	min = ft_min(sta);
+
+	while (sta->last >= 0)
+	{
+		if(sta->stack[0] == min)
+		{
+			push(stb,sta);					//printf("\n---------------------> push");print(sta,stb);
+			min = ft_min(sta);
+		}
+		else if(sta->stack[0] == max)
+		{
+			push(stb,sta);					//printf("\n---------------------> push");print(sta,stb);
+			if(stb->last > 0)
+				rotate(stb);				//printf("\n---------------------> rot");print(sta,stb);}
+			max = ft_max(sta);
+		}else								//Busca max y min y va a por el más cercano
+		{
+	//		printf("\n---------------------> GO NEAAREST ---------------------> ");print(sta,stb);
+			imin = ft_find_min(sta);
+			imax = ft_find_max(sta);
+			if(abs(imin) < abs(imax))
+			{
+
+				if(imin > 0)
+					for(int i = 0; i < imin ;i++){
+						rotate(sta);}
+				if(imin < 0)
+					for(int i = 0; i < abs(imin) ;i++){
+						reverse(sta);}
+			}
+			else
+			{
+				if(imax > 0)
+					for(int i = 0; i < imax ;i++ ){
+						rotate(sta);}
+				if(imax < 0)
+					for(int i = 0; i < abs(imax) ;i++ ){
+						reverse(sta);}
+			}
+	//			printf("\n---------------------> GO NEAAREST");print(sta,stb);
+
 		}
 	}
 	while (stb->stack[0] < stb->stack[stb->last])
 	{
 		rotate(stb);
 	}
-	print(sta,stb);
 	//print(sta,stb);
+	//print(sta,stb);
+	return 0;
+}
+
+int dealer0(int n, my_stack *a, my_stack *b)
+{
+	/*Control errores*/
+	if(n - 1 > a->last)
+		return -1;
+
+	/*****************/
+	push(b,a);
+	push(b,a);
+	int cont = 2;
+	while (n > 2)
+	{
+		if(a->stack[0] - b->stack[0] > a->stack[1] - b->stack[1])
+		{
+			rr(a,b);cont++;
+			push(b,a);cont++;
+		}
+		else
+		{
+			push(b,a);cont++;
+		}
+	n--;
+	}
+	return 0;
+}
+
+int dealer(int n, my_stack *a, my_stack *b)
+{
+	/*Control errores*/
+	if(n - 1 > a->last)
+		return -1;
+
+	/*****************/
+	push(b,a);
+	push(b,a);
+	int cont = 2;
+	while (n > 2)
+	{
+		if(a->stack[a->last] - b->stack[b->last] > a->stack[1] - b->stack[1])	//Caso rr mejor que rrr
+		{
+			if(a->stack[0] - b->stack[0] > a->stack[1] - b->stack[1])
+			{
+				rr(a,b);cont++;
+				push(b,a);cont++;
+			}
+			else
+			{
+				push(b,a);cont++;
+			}
+		}
+		else
+		{
+			if(a->stack[0] - b->stack[0] > a->stack[b->last] - b->stack[b->last])
+			{
+				rrr(a,b);cont++;
+				push(b,a);cont++;
+			}
+			else
+			{
+				push(b,a);cont++;
+			}
+		}
+		n--;
+	}
+//	print(a,b);
 	return cont;
 }
 
@@ -395,136 +545,70 @@ int ps_all_up(my_stack *a, my_stack *b)
 	return cont;
 }
 
-/** * * * * * * T O O L S * * * * * * **/
-
-int	ft_init(my_stack *stack,int argc,char **argv)
+int push_swap_n_down(int n, my_stack *origin, my_stack *destiny)
 {
-	/*INICIALIZAR*/
-	
-	stack->size		=	argc - 1;
-	stack->stack	=	(int *)ft_calloc(sizeof(int) , (argc - 1));
+	int cont = 1;
+	if(n < 1)
+		return -1;
 
-	/*discriminar stacks*/
-
-	if(argv == NULL){			//stack B
-		stack->last		=	-1;
-		stack->ch 		=	'b';
-//		status(stack);
-		return 1;
-	
-	/*Captar argumentos*/		//Stack A
-
-	}else
+	push(destiny,origin);
+	while (origin->last > - 1 && n > 1)
 	{
-		stack->last		=	argc - 2;
-		stack->ch 		= 	'a';
-		int i = 1;
-		while (i < argc)
+		push(destiny,origin);
+		cont++;
+		if(destiny->stack[0] > destiny->stack[1])
 		{
-			stack->stack[i-1] = ft_atoi(argv[i]);
-			i++;
+			swap(destiny);
+			cont++;
 		}
-//		status(stack);
-		return 0;
+		n--;
 	}
-
+	return cont;
 }
 
-int ft_max(my_stack *st)
-{
-	int i = 1;
-	int temp = st->stack[0];
-
-	while (i <= st->last)
-	{
-		if(temp < st->stack[i])
-			temp = st->stack[i];
-		i++;
-	}
-
-//	printf("\nMAX-->%i",temp);
-	return temp;
-}
-
-int ft_min(my_stack *st)
-{
-	int i = 1;
-	int temp = st->stack[0];
-
-	while (i <= st->last)
-	{
-		if(temp > st->stack[i])
-			temp = st->stack[i];
-		i++;
-	}
-
-//	printf("\nMIN-->%i",temp);
-	return temp;
-}
-
-int	ft_isrevorder(my_stack *st)
-{
-	int i = 0;
-	int step = 0;
-
-	if(st->stack[st->last] < st->stack[0] && step == 0)
-		step++;
-
-	while (i < st->last)
-	{
-		if(st->stack[i] < st->stack[i+1] && step == 0)
-			step++;
-		else 
-			if(st->stack[i] < st->stack[i+1] && step != 0)
-				return 0;
-		i++;
-	}
-	return 1;
-}
-
-int	ft_isorder(my_stack *st)
-{
-	int i = 0;
-	int step = 0;
-
-	if(st->stack[st->last] > st->stack[0] && step == 0)
-		step++;
-
-	while (i < st->last)
-	{
-		if(st->stack[i] > st->stack[i+1] && step == 0)
-			step++;
-		else 
-			if(st->stack[i] > st->stack[i+1] && step != 0)
-				return 0;
-		i++;
-	}
-	return 1;
-}
-
-int check(my_stack *st)
-{
-	int i = 1;
-
-	while (i < st->size)
-	{
-		if(!(st->stack[i-1] < st->stack[i]))
-		{
-			return 0;
-		}
-		i++;
-	}
-	return 1;
-}
-
-int swap_ordena(my_stack *st)
-{
-	if(st->last < 2)
-		return 0;
-	if(st->stack[1] < st->stack[0])
-		return 1;
-	return 0;
-}
 
 
 //int rot_or_rev()
+
+
+void rotoswap(my_stack *a, int ciclos)
+{
+
+	while (ciclos > 0)
+	{
+	
+	
+	
+		if(abs(abs(a->stack[0]) - abs(a->stack[1])) > abs(abs(a->stack[2]) - abs(a->stack[0])))
+			swap(a);
+		rotate(a);
+
+
+
+
+		ciclos--;
+	}
+}
+
+
+
+int ft_media(my_stack *a)
+{
+	return((ft_max(a)-ft_min(a))/a->last + 1);
+}
+
+
+void pasa_media(my_stack *a, my_stack *b)
+{
+	int media;
+
+	media = ft_media(a);
+
+	while(a->last - 1 > a->size / 2)
+	{
+		if(a->stack[0] > media)
+			push(b,a);
+		else
+			rotate(a);
+	}
+}
