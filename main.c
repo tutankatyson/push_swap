@@ -14,7 +14,8 @@
 
 int dealer0(int n, my_stack *a, my_stack *b);
 void pasa_media(my_stack *a, my_stack *b);
-
+void rev_swap(my_stack *a, my_stack *b, int ciclos);
+void pasa_media2(my_stack *a, my_stack *b);
 
 int main(int argc, char **argv)
 {
@@ -40,7 +41,18 @@ int main(int argc, char **argv)
 //	rotoswap(&a,500);
 //	dispersion(&a);
 
+/* algoritmo dos mitades */
+
 	pasa_media(&a,&b);
+	algoritmo2_2(&a,&b);
+	algoritmo1_2(&b,&a);
+
+
+//	rev_swap(&a, &b, 500);
+
+
+
+
 
 
 //	dealer0(50,&a,&b);		//82
@@ -318,6 +330,62 @@ int algoritmo2_1(my_stack *sta, my_stack *stb)
 	return cont;
 }
 
+int algoritmo1_2(my_stack *sta, my_stack *stb)
+{
+							//Toma el máximo o el mínimo y hace push al otro stack
+	int max;				//ahora toma el camino más corto para llegar al numero a cambiar		
+	int min;
+	int imin;
+	int imax;
+
+	max = ft_max(sta);
+	min = ft_min(sta);
+
+	while (sta->last >= 0)
+	{
+		if(sta->stack[0] == max)
+		{
+			push(stb,sta);					//printf("\n---------------------> push");print(sta,stb);
+			max = ft_max(sta);
+		}
+		else if(sta->stack[0] == min)
+		{
+			push(stb,sta);					//printf("\n---------------------> push");print(sta,stb);
+			if(stb->last > 0)
+				rotate(stb);				//printf("\n---------------------> rot");print(sta,stb);}
+			min = ft_min(sta);
+		}else								//Busca max y min y va a por el más cercano
+		{
+	//		printf("\n---------------------> GO NEAAREST ---------------------> ");print(sta,stb);
+			imin = ft_find_min(sta);
+			imax = ft_find_max(sta);	
+			if(abs(imin) < abs(imax))
+			{
+				if(imin > 0)
+						rotate(sta);
+				if(imin < 0)
+						reverse(sta);
+			}
+			else
+			{
+				if(imax > 0)
+						rotate(sta);
+				if(imax < 0)
+						reverse(sta);
+			}
+	//			printf("\n---------------------> GO NEAAREST");print(sta,stb);
+
+		}
+	}
+	while (stb->stack[0] > stb->stack[stb->last])
+	{
+		rotate(stb);
+	}
+	//print(sta,stb);
+	//print(sta,stb);
+	return 0;
+}
+
 int algoritmo2_2(my_stack *sta, my_stack *stb)
 {
 							//Toma el máximo o el mínimo y hace push al otro stack
@@ -340,7 +408,7 @@ int algoritmo2_2(my_stack *sta, my_stack *stb)
 		{
 			push(stb,sta);					//printf("\n---------------------> push");print(sta,stb);
 			if(stb->last > 0)
-				rotate(stb);				//printf("\n---------------------> rot");print(sta,stb);}
+				rrr(stb,sta);				//printf("\n---------------------> rot");print(sta,stb);}
 			max = ft_max(sta);
 		}else								//Busca max y min y va a por el más cercano
 		{
@@ -351,20 +419,16 @@ int algoritmo2_2(my_stack *sta, my_stack *stb)
 			{
 
 				if(imin > 0)
-					for(int i = 0; i < imin ;i++){
-						rotate(sta);}
+					rotate(sta);
 				if(imin < 0)
-					for(int i = 0; i < abs(imin) ;i++){
-						reverse(sta);}
+					reverse(sta);
 			}
 			else
 			{
 				if(imax > 0)
-					for(int i = 0; i < imax ;i++ ){
-						rotate(sta);}
+						rotate(sta);
 				if(imax < 0)
-					for(int i = 0; i < abs(imax) ;i++ ){
-						reverse(sta);}
+						reverse(sta);
 			}
 	//			printf("\n---------------------> GO NEAAREST");print(sta,stb);
 
@@ -594,11 +658,58 @@ void rotoswap(my_stack *a, int ciclos)
 
 int ft_media(my_stack *a)
 {
-	return((ft_max(a)-ft_min(a))/a->last + 1);
+	int media;
+
+	media = (ft_max(a) - ft_min(a)) / (a->last + 1);
+	printf("\nMedia:%i\n",media);
+	printf("\nmax:%i\n",ft_max(a));
+	printf("\nmin:%i\n",ft_min(a));
+	return(media);
 }
 
 
 void pasa_media(my_stack *a, my_stack *b)
+{
+	int media, size;
+
+	media = ft_media(a);
+	size = a->last + 1;
+
+	while(a->last - 1 > size / 2)
+	{
+		if(a->stack[0] > media)
+			push(b,a);
+		else
+			rotate(a);
+	}
+}
+
+void rev_swap(my_stack *a, my_stack *b, int ciclos)
+{
+//	int bmax, bmin, amax, amin;
+
+//	amax = ft_max(a);
+//	bmax = ft_max(b);
+//	amin = ft_min(a);
+//	bmin = ft_min(b);
+
+	while (ciclos > 0)
+	{
+		if(abs(abs(a->stack[0]) - abs(a->stack[1])) > abs(abs(a->stack[0]) - abs(a->stack[2])))
+		{
+			if(abs(abs(b->stack[0]) - abs(b->stack[1])) < abs(abs(b->stack[0]) - abs(b->stack[2])))
+				ss(a,b);
+			else
+				swap(a);
+		}
+		rrr(a,b);
+
+		ciclos--;
+	}
+	
+}
+
+void pasa_media2(my_stack *a, my_stack *b)
 {
 	int media;
 
@@ -609,6 +720,13 @@ void pasa_media(my_stack *a, my_stack *b)
 		if(a->stack[0] > media)
 			push(b,a);
 		else
+		if(abs(abs(a->stack[0]) - abs(a->stack[1])) > abs(abs(a->stack[0]) - abs(a->stack[2])))
+		{
+			if(abs(abs(b->stack[0]) - abs(b->stack[1])) < abs(abs(b->stack[0]) - abs(b->stack[2])))
+				rr(a,b);
+
+		}
 			rotate(a);
 	}
 }
+

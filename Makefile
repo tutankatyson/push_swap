@@ -112,5 +112,5 @@ py100: fclean $(NAME)
 py1000: fclean $(NAME)
 	python3 python_visualizer.py `ruby -e "puts (-499..500).to_a.shuffle.join(' ')"`
 
-py10000: fclean $(NAME)
-	python3 python_visualizer.py `ruby -e "puts (-4999..5000).to_a.shuffle.join(' ')"`
+py500: fclean $(NAME)
+	python3 python_visualizer.py `ruby -e "puts (-249..259).to_a.shuffle.join(' ')"`

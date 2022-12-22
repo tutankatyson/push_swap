@@ -6,7 +6,7 @@
 /*   By: jorsanch <jorsanch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:13:40 by jorsanch          #+#    #+#             */
-/*   Updated: 2022/12/22 16:47:23 by jorsanch         ###   ########.fr       */
+/*   Updated: 2022/12/22 18:48:47 by jorsanch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	ft_isrevorder(my_stack *st);
 int check(my_stack *st);
 int abs(int num);
 void dispersion(my_stack *st);
-
+int ft_media(my_stack *a);
 
 /********MONITOR*******/
 
@@ -79,6 +79,7 @@ void status(my_stack *st);
 
 int algoritmo1(my_stack *sta, my_stack *stb);
 int algoritmo1_1(my_stack *sta, my_stack *stb);
+int algoritmo1_2(my_stack *sta, my_stack *stb);
 int algoritmo2(my_stack *sta, my_stack *stb);
 int algoritmo2_1(my_stack *sta, my_stack *stb);
 int algoritmo2_2(my_stack *sta, my_stack *stb);
