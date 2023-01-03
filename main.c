@@ -40,7 +40,10 @@ int main(int argc, char **argv)
 //	rotoswap(&a,500);
 //	dispersion(&a);
 
-	pasa_media(&a,&b);
+//	pasa_media(&a,&b);
+
+
+
 
 
 //	dealer0(50,&a,&b);		//82
@@ -53,8 +56,9 @@ int main(int argc, char **argv)
 
 //	rollup_b_pushall(&a,&b);					//(100)1500
 //	rollup_b_pushall_2(&a,&b);					//(100)1500
-//	rollup_b_pushall_3(&a,&b);					//(20)90 (100)1500
-//	PUSH_SWAP(&a,&b);
+	rollup_b_pushall_3(&a,&b);					//(20)90 (100)1300 (1.000) 120.000
+
+//	PUSH_SWAP(&a,&b);							//(100) 8591
 
 
 
@@ -351,20 +355,17 @@ int algoritmo2_2(my_stack *sta, my_stack *stb)
 			{
 
 				if(imin > 0)
-					for(int i = 0; i < imin ;i++){
-						rotate(sta);}
+					rotate(sta);
 				if(imin < 0)
-					for(int i = 0; i < abs(imin) ;i++){
-						reverse(sta);}
+					reverse(sta);
 			}
 			else
 			{
 				if(imax > 0)
-					for(int i = 0; i < imax ;i++ ){
-						rotate(sta);}
+					rotate(sta);
 				if(imax < 0)
-					for(int i = 0; i < abs(imax) ;i++ ){
-						reverse(sta);}
+					reverse(sta);
+
 			}
 	//			printf("\n---------------------> GO NEAAREST");print(sta,stb);
 
@@ -612,3 +613,4 @@ void pasa_media(my_stack *a, my_stack *b)
 			rotate(a);
 	}
 }
+

@@ -6,7 +6,7 @@
 /*   By: jorsanch <jorsanch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:11:33 by jorsanch          #+#    #+#             */
-/*   Updated: 2022/12/22 16:40:22 by jorsanch         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:30:16 by jorsanch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 /** * * * * * * T O O L S * * * * * * **/
 
-int	ft_init(my_stack *stack,int argc,char **argv)
+void	ft_init(my_stack *stack, int argc, char **argv)
 {
 	/*INICIALIZAR*/
 	
 	stack->size		=	argc - 1;
 	stack->stack	=	(int *)ft_calloc(sizeof(int) , (argc - 1));
+	stack->order	=	(int *)ft_calloc(sizeof(int) , (argc - 1));
 
 	/*discriminar stacks*/
 
@@ -28,8 +29,7 @@ int	ft_init(my_stack *stack,int argc,char **argv)
 		stack->ch 			=	'b';
 		stack->dispersión	=	0;
 //		status(stack);
-		return 1;
-	
+
 	/*Captar argumentos*/		//Stack A
 
 	}else
@@ -46,7 +46,29 @@ int	ft_init(my_stack *stack,int argc,char **argv)
 			i++;
 		}
 //		status(stack);
-		return 0;
+	}
+	ft_index(stack);
+}
+
+void ft_index(my_stack *st)
+{
+
+	int i, j, pos;
+
+	i = 0;
+
+	while (i < st->size)
+	{
+		j = 0;
+		pos = 1;
+		while (j < st->size)
+		{
+			if(st->stack[j] < st->stack[i])
+				pos++;
+			j++;
+		}
+		st->order[i] = pos;
+		i++;
 	}
 
 }
@@ -281,32 +303,41 @@ int checkp(my_stack *st)
 
 void ss(my_stack *sta, my_stack *stb)
 {
-    int temp;
+    int temp,order;
 
 	if(sta->last > 1)
 	{
     temp 			= 	sta->stack[0];
+    order 			= 	sta->order[0];
     sta->stack[0] 	= 	sta->stack[1];
+    sta->order[0] 	= 	sta->order[1];
     sta->stack[1] 	= 	temp;
+    sta->order[1] 	= 	order;
 	}
 	if(stb->last > 1)
 	{
     temp 			= 	stb->stack[0];
+    order 			= 	stb->order[0];
     stb->stack[0] 	= 	stb->stack[1];
+    stb->order[0] 	= 	stb->order[1];
     stb->stack[1] 	= 	temp;
+    stb->order[1] 	= 	order;
 	}
     printf("ss\n");
 }
 
 void swap(my_stack *st)
 {
-    int temp;
+    int temp, ord;
 
 	if(st->last > 1)
 	{
     temp 			= 	st->stack[0];
+    ord 			= 	st->order[0];
     st->stack[0] 	= 	st->stack[1];
+    st->order[0] 	= 	st->order[1];
     st->stack[1] 	= 	temp;
+    st->order[1] 	= 	ord;
 	}
     printf("s%c\n",st->ch);
 }
@@ -316,30 +347,36 @@ void swap(my_stack *st)
 void rr(my_stack *sta, my_stack *stb)
 {
     int i = 1;
-	int temp;
+	int temp, ord;
 	
 	if(sta->last > 0)
 	{
 		temp = sta->stack[0];
+		ord = sta->order[0];
 
 		while (i <= sta->last)
 		{
 			sta->stack[i - 1] = sta->stack[i];
+			sta->order[i - 1] = sta->order[i];
 			i++;
 		}
 		sta->stack[i - 1] = temp;
+		sta->order[i - 1] = ord;
 	}
 	i = 1;
 	if(stb->last > 0)
 	{
 		temp = stb->stack[0];
+		ord = stb->order[0];
 
 		while (i <= stb->last)
 		{
 			stb->stack[i - 1] = stb->stack[i];
+			stb->order[i - 1] = stb->order[i];
 			i++;
 		}
 		stb->stack[i - 1] = temp;
+		stb->order[i - 1] = ord;
 	}
 
 
@@ -349,20 +386,23 @@ void rr(my_stack *sta, my_stack *stb)
 void rotate(my_stack *st)
 {
     int i = 1;
-	int temp;
+	int temp, ord;
 	
 //	status(st);
 
 	if(st->last > 0)
 	{
 		temp = st->stack[0];
+		ord = st->order[0];
 
 		while (i <= st->last)
 		{
 			st->stack[i - 1] = st->stack[i];
+			st->order[i - 1] = st->order[i];
 			i++;
 		}
 		st->stack[i - 1] = temp;
+		st->order[i - 1] = ord;
 	}
     printf("r%c\n",st->ch);
 }
@@ -372,42 +412,52 @@ void rotate(my_stack *st)
 void rrr(my_stack *sta, my_stack *stb)
 {
 	int i = 0;
-	int temp;
+	int temp, ord;
 
 	temp = sta->stack[sta->last];
+	ord = sta->order[sta->last];
 
 	while (i < sta->last)
 	{
 		sta->stack[sta->last-i] = sta->stack[sta->last-i-1];
+		sta->order[sta->last-i] = sta->order[sta->last-i-1];
 		i++;
 	}
 	sta->stack[0] = temp;
+	sta->order[0] = ord;
 
 	i = 0;
 	temp = stb->stack[stb->last];
+	ord = stb->order[stb->last];
 	while (i < stb->last)
 	{
 		stb->stack[stb->last-i] = stb->stack[stb->last-i-1];
+		stb->order[stb->last-i] = stb->order[stb->last-i-1];
 		i++;
 	}
 	stb->stack[0] = temp;
-
+	stb->order[0] = ord;
+	
 	printf("rrr\n");
 }
 
 void reverse(my_stack *st)	
 {
 	int i = 0;
-	int temp;
+	int temp, ord;
 
 	temp = st->stack[st->last];
+	ord = st->order[st->last];
+	
 
 	while (i < st->last)
 	{
 		st->stack[st->last-i] = st->stack[st->last-i-1];
+		st->order[st->last-i] = st->order[st->last-i-1];
 		i++;
 	}
 	st->stack[0] = temp;
+	st->order[0] = ord;
 
 	printf("rr%c\n",st->ch);
 }
@@ -417,7 +467,13 @@ int push(my_stack *to, my_stack *from)
 {
 	if(from->last == -1)
 		return 0;
+
 	int i = 0;
+	int ord;
+
+	ord = to->order[0];
+	to->order[0] = from->order[0];
+	from->order[0] = ord;
 
 	while (i <= to->last)
 	{
@@ -438,6 +494,8 @@ int push(my_stack *to, my_stack *from)
 	if(to->stack[0] < to->min)
 		to->min = to->stack[0];
 
+
+	
 
 	printf("p%c\n",to->ch);
 	return 1;

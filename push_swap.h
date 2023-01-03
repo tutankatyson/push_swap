@@ -6,7 +6,7 @@
 /*   By: jorsanch <jorsanch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:13:40 by jorsanch          #+#    #+#             */
-/*   Updated: 2022/12/22 16:47:23 by jorsanch         ###   ########.fr       */
+/*   Updated: 2023/01/03 18:54:35 by jorsanch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 typedef struct mi_stack
 {
     int     *stack;
+	int		*order;
 	char	ch;
 	int		size;
 	int     last;
@@ -57,7 +58,8 @@ int push(my_stack *to, my_stack *from);
 
 /********TOOLS*******/
 
-int	ft_init(my_stack *stack,int argc,char **argv);
+void	ft_init(my_stack *stack,int argc,char **argv);
+void ft_index(my_stack *st);
 int ft_max(my_stack *st);
 int ft_min(my_stack *st);
 int ft_find_max(my_stack *st);
