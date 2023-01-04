@@ -6,7 +6,7 @@
 /*   By: jorsanch <jorsanch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:13:40 by jorsanch          #+#    #+#             */
-/*   Updated: 2023/01/03 18:54:35 by jorsanch         ###   ########.fr       */
+/*   Updated: 2023/01/04 22:19:38 by jorsanch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,14 @@ int rollup_b_pushall_2(my_stack *a, my_stack *b);
 int rollup_b_pushall_3(my_stack *a, my_stack *b);
 int PUSH_SWAP(my_stack *a, my_stack *b);
 
+
+
+int ft_insert(my_stack *from, int position, my_stack *to);
+int ft_insertin(my_stack *from, int position, my_stack *to);
+int ft_inserton(my_stack *from, int fromi, my_stack *to, int toi);
+int ft_menor(int a, int b);
+int ft_menor3(int a, int b, int c);
+int ft_findpos(int num, my_stack *st);
 
 #endif
 

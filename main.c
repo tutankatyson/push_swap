@@ -16,6 +16,9 @@ int dealer0(int n, my_stack *a, my_stack *b);
 void pasa_media(my_stack *a, my_stack *b);
 
 
+#define A 2
+#define B 26
+
 int main(int argc, char **argv)
 {
 
@@ -42,6 +45,35 @@ int main(int argc, char **argv)
 
 //	pasa_media(&a,&b);
 
+	rollup_b_pushall_3(&a,&b);					//(20)90 (100)1300 (1.000) 120.000
+
+
+
+	ft_insert(&a,10,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+	ft_insert(&a,0,&b);
+
+
+
+	ft_inserton(&a,A,&b,B);
 
 
 
@@ -56,7 +88,6 @@ int main(int argc, char **argv)
 
 //	rollup_b_pushall(&a,&b);					//(100)1500
 //	rollup_b_pushall_2(&a,&b);					//(100)1500
-	rollup_b_pushall_3(&a,&b);					//(20)90 (100)1300 (1.000) 120.000
 
 //	PUSH_SWAP(&a,&b);							//(100) 8591
 
@@ -126,7 +157,7 @@ int rollup_b_pushall_3(my_stack *a, my_stack *b)
 //	print(a,b);
 
 	/*Resultados*/
-	checkp(a);
+//	checkp(a);
 
 
 

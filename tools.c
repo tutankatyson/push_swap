@@ -6,7 +6,7 @@
 /*   By: jorsanch <jorsanch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:11:33 by jorsanch          #+#    #+#             */
-/*   Updated: 2023/01/03 19:30:16 by jorsanch         ###   ########.fr       */
+/*   Updated: 2023/01/04 22:19:18 by jorsanch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -500,5 +500,267 @@ int push(my_stack *to, my_stack *from)
 	printf("p%c\n",to->ch);
 	return 1;
 }
+
+
+/** * * * * N U E V A S * * * * **/
+
+
+
+// Inserta from[position] en to[0]
+
+int ft_insert(my_stack *from, int position, my_stack *to)
+{
+	int cont = 0;
+
+	if(position == 0)
+	{
+		push(to,from);
+		return 1;
+	}
+
+	if(position < (from->last + 1) / 2)
+	{
+		for (int i = 0; i < position; i++)
+		{
+			rotate(from);
+			cont++;
+		}
+		push(to,from);
+		cont++;
+											printf("\nMATH1: %i\n",position + 1);
+	}
+	else
+	{
+		for (int i = 1 + from->last - position; i > 0; i--)
+		{
+			reverse(from);
+			cont++;
+		}
+		push(to,from);
+		cont++;
+											printf("\nMATH2: %i\n",3 + from->last - position);
+	}
+											printf("\nCONT: %i\n",cont);
+	return cont;
+}
+
+
+// Inserta from[0] en to[position]
+
+int ft_insertin(my_stack *from, int position, my_stack *to)
+{
+	int cont = 0;
+
+	if(position == 0)
+	{
+		push(to,from);
+		return 1;
+	}
+
+	if(position < (to->last + 1) / 2)
+	{
+		for (int i = 0; i < position; i++)
+		{
+			rotate(to);
+			cont++;
+		}
+		push(to,from);
+		cont++;
+											printf("\nMATH3: %i\n",position + 1);
+	}
+	else
+	{
+		for (int i = 1 + to->last - position; i > 0; i--)
+		{
+			reverse(to);
+			cont++;
+		}
+		push(to,from);
+		cont++;
+											printf("\nMATH4: %i\n",1 + to->last - position);
+	}
+											printf("\nCONT: %i\n",cont);
+	return cont;
+}
+
+// Inserta from[fromi] en to[toi]
+
+
+
+int ft_inserton(my_stack *from, int fromi, my_stack *to, int toi)
+{
+
+	int cont = 0;
+	int ra,rra,rb,rrb,cr,crr,besta,bestb;
+
+	if(fromi == 0 && toi == 0)
+	{
+		push(to,from);
+											printf("\nCONT: 1\n");
+		return 1;
+	}
+
+
+	ra = fromi;
+	rb = toi;
+	rra = from->last - fromi;
+	rrb = to->last - toi;
+
+	cr  = abs( ra - rb );
+	crr = abs(rra - rrb);
+	besta = abs(ft_menor(ra , rra));
+	bestb = abs(ft_menor(rb , rrb));
+
+	if(cr < crr && cr < besta + bestb)		//merece más la pena rotate
+	{
+		if(fromi < toi)
+		{										printf("\nMATH cr toi: %i\n",toi+1);
+			for (int i = 0; i < fromi; i++)
+			{
+				rr(from,to);
+				cont++;					
+			}
+			for (int i = 0; i < toi - fromi; i++)
+			{
+				rotate(to);								
+				cont++;
+			}
+		}
+		else
+		{										printf("\nMATH cr fri: %i\n",fromi+1);
+			for (int i = 0; i < toi; i++)
+			{
+				rr(from,to);
+				cont++;
+			}
+			for (int i = 0; i < fromi - toi; i++)
+			{
+				rotate(from);
+				cont++;
+			}			
+		}
+	}
+	else if(crr < cr && crr < besta + bestb)	//merece más la pena reverse
+	{
+		if(fromi < toi)
+		{										printf("\nMATH crr fri: %i\n",toi+1);
+			for (int i = 0; i < fromi; i++)
+			{
+				rr(from,to);
+				cont++;
+			}
+			for (int i = 0; i < toi - fromi; i++)
+			{
+				reverse(to);
+				cont++;
+			}
+		}
+		else
+		{										printf("\nMATH crr fri: %i\n",fromi+1);
+			for (int i = 0; i < toi; i++)
+			{
+				rr(from,to);
+				cont++;
+			}
+			for (int i = 0; i < fromi - toi; i++)
+			{
+				reverse(from);
+				cont++;
+			}			
+		}
+	}
+	else if(besta + bestb < cr && besta + bestb < crr)	//Sin atajos	
+	{
+		if(ra < rra)
+		{
+			for (int i = 0; i < fromi; i++)
+			{
+				rotate(from);
+				cont++;
+			}
+		}
+		else
+		{
+			for (int i = 0; i < from->last - fromi; i++)
+			{
+				reverse(from);
+				cont++;
+			}
+		}
+		if(rb < rrb)
+		{
+			for (int i = 0; i < toi; i++)
+			{
+				rotate(to);
+				cont++;
+			}
+		}
+		else
+		{
+			for (int i = 0; i < to->last - toi; i++)
+			{
+				reverse(to);
+				cont++;
+			}
+		}
+									printf("\nMATH: no atajos %i\n",besta + bestb+1);
+	}
+
+
+
+	push(to,from);cont++;
+											printf("\nCONT: %i\n",cont);
+
+	return cont;
+}
+
+
+int ft_menor(int a, int b)
+{
+	if(a < b)
+		return a;
+	return (b * -1);
+}
+
+int ft_menor3(int a, int b, int c)
+{
+	if(a < b && a < c)
+		return a;
+	if(b < a && b < c)
+		return b;
+	if(c < b && c < a)
+		return c;
+}
+
+
+int ft_findpos(int num, my_stack *st)
+{
+	int position = 0;
+
+	if(num > st->max || num > st->min)		//Numeros maximos y minimos
+	{
+		for (int i = 0; i < st->last; i++)
+		{
+			position++;		
+			if(st->stack[i] == st->min)
+				return position;
+		}
+	}
+
+	
+	
+	if(num < st->stack[0] && num > st->stack[st->last])
+		return position;
+	
+	for (int i = 0; i < st->last; i++)
+	{
+		position++;		
+		if(num > st->stack[i] && num < st->stack[i+1])
+			return position;
+	}
+	
+	return -1;
+}
+
 
 
