@@ -45,9 +45,9 @@ int main(int argc, char **argv)
 
 //	pasa_media(&a,&b);
 
-//	rollup_b_pushall_3(&a,&b);					//(20)90 (100)1300 (1.000) 120.000
+	rollup_b_pushall_3(&a,&b);					//(20)90 (100)1300 (1.000) 120.000
 
-	algo_de_ritmo(&a,&b);
+//	algo_de_ritmo(&a,&b);
 
 /*
 	ft_insert(&a,10,&b);

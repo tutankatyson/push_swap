@@ -6,7 +6,7 @@
 /*   By: jorsanch <jorsanch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:11:33 by jorsanch          #+#    #+#             */
-/*   Updated: 2023/01/05 15:50:22 by jorsanch         ###   ########.fr       */
+/*   Updated: 2023/01/05 18:49:06 by jorsanch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,6 +278,8 @@ void status(my_stack *st)
 	printf("\n --STACK %c--",st->ch);
 	printf("\n --SIZE : %i",st->size);
 	printf("\n --LAST : %i",st->last);
+	printf("\n --MIN : %i",st->min);
+	printf("\n --MAX : %i",st->max);
 }
 
 int checkp(my_stack *st)
@@ -494,6 +496,8 @@ int push(my_stack *to, my_stack *from)
 	if(to->stack[0] < to->min)
 		to->min = to->stack[0];
 
+	from->min = ft_min(from);
+	from->max = ft_max(from);
 
 	
 
@@ -589,12 +593,12 @@ int ft_inserton(my_stack *from, int fromi, my_stack *to, int toi)
 {
 
 	int cont = 0;
-	int ra,rra,rb,rrb,cr,crr,besta,bestb;
+	int ra,rra,rb,rrb,cr,crr,besta,bestb, simple;
 
 	if(fromi == 0 && toi == 0)
 	{
 		push(to,from);
-									//		printf("\nCONT: 1\n");
+											printf("\nWAY 1\n");
 		return 1;
 	}
 
@@ -608,11 +612,13 @@ int ft_inserton(my_stack *from, int fromi, my_stack *to, int toi)
 	crr = abs(rra - rrb);
 	besta = abs(ft_menor(ra , rra));
 	bestb = abs(ft_menor(rb , rrb));
+	simple = besta + bestb;
+									printf("\ncr: %i; crr:%i; best:%i\n", cr,crr,simple);
 
-	if(cr < crr && cr < besta + bestb)		//merece más la pena rotate
-	{
+	if(cr <= crr && cr <= simple)					//merece más la pena rotate
+	{											printf("\nCR\n");
 		if(fromi < toi)
-		{									//	printf("\nMATH cr toi: %i\n",toi+1);
+		{
 			for (int i = 0; i < fromi; i++)
 			{
 				rr(from,to);
@@ -625,7 +631,7 @@ int ft_inserton(my_stack *from, int fromi, my_stack *to, int toi)
 			}
 		}
 		else
-		{								//		printf("\nMATH cr fri: %i\n",fromi+1);
+		{										//printf("\nMATH cr fri: %i\n",fromi+1);
 			for (int i = 0; i < toi; i++)
 			{
 				rr(from,to);
@@ -638,8 +644,8 @@ int ft_inserton(my_stack *from, int fromi, my_stack *to, int toi)
 			}			
 		}
 	}
-	else if(crr < cr && crr < besta + bestb)	//merece más la pena reverse
-	{
+	else if(crr <= cr && crr <= simple)	//merece más la pena reverse
+	{											printf("\nCRR\n");
 		if(fromi < toi)
 		{							//			printf("\nMATH crr fri: %i\n",toi+1);
 			for (int i = 0; i < fromi; i++)
@@ -667,8 +673,8 @@ int ft_inserton(my_stack *from, int fromi, my_stack *to, int toi)
 			}			
 		}
 	}
-	else if(besta + bestb < cr && besta + bestb < crr)	//Sin atajos	
-	{
+	else if(simple <= cr && simple <= crr)	//Sin atajos	
+	{											printf("\nBEST\n");
 		if(ra < rra)
 		{
 			for (int i = 0; i < fromi; i++)
@@ -736,30 +742,42 @@ int ft_findpos(int num, my_stack *st)
 {
 	int position = 0;
 
-//	printf("\nfind_position(num: %i)\n",num);
 
-	if(num > ft_find_max(st) || num < ft_find_max(st))		//Numeros maximos y minimos
-	{									printf("\nfind_position(num: %i)\n",num);
-		for (int i = 0; i < st->last; i++)
-		{
-			position++;		
+									//		printf("\nfind_position(num: %i)\n",num);
+	
+	if(num < st->min)		//Numeros maximos y minimos
+	{
+		for (int i = 0; i <= st->last; i++)
+		{							//		printf("\nMAX MIN"); status(st);
 			if(st->stack[i] == st->min)
-			{							printf("\nfind_position-1-> %i\n",num);
+			{						//		printf("\nfind_position-1-> %i\n",position);
+				return position;
+			}
+			position++;		
+		}
+	}
+	if(num > st->max)		//Numeros maximos y minimos
+	{
+		for (int i = 0; i <= st->last; i++)
+		{							//		printf("\nMAX MIN"); status(st);
+			position++;		
+			if(st->stack[i] == st->max)
+			{						//		printf("\nfind_position-1-> %i\n",position);
 				return position;
 			}
 		}
 	}
 	
 	if(num < st->stack[0] && num > st->stack[st->last])
-		{							printf("\nfind_position-2-> %i\n",num);
-			return position;
-		}
+	{								//		printf("\nfind_position-2-> %i\n",position);
+		return position;
+	}
 	
 	for (int i = 0; i < st->last; i++)
 	{
 		position++;		
 		if(num > st->stack[i] && num < st->stack[i+1])
-		{							printf("\nfind_position-3-> %i\n",num);
+		{							//		printf("\nfind_position-3-> %i\n",position);
 			return position;
 		}
 	}
@@ -899,6 +917,8 @@ void algo_de_ritmo(my_stack *a, my_stack *b)
 				calc = ft_calculater(b,i,a,ft_findpos(b->stack[i],a));
 			}
 		}
+//		printf("\ncand %i; ins %i\n", candidato,ft_findpos(b->stack[candidato],a));
+
 		ft_inserton(b,candidato,a,ft_findpos(b->stack[candidato],a));
 	}
 	
