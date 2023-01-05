@@ -6,7 +6,7 @@
 /*   By: jorsanch <jorsanch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:11:33 by jorsanch          #+#    #+#             */
-/*   Updated: 2023/01/04 22:19:18 by jorsanch         ###   ########.fr       */
+/*   Updated: 2023/01/05 15:50:22 by jorsanch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -585,8 +585,6 @@ int ft_insertin(my_stack *from, int position, my_stack *to)
 
 // Inserta from[fromi] en to[toi]
 
-
-
 int ft_inserton(my_stack *from, int fromi, my_stack *to, int toi)
 {
 
@@ -596,7 +594,7 @@ int ft_inserton(my_stack *from, int fromi, my_stack *to, int toi)
 	if(fromi == 0 && toi == 0)
 	{
 		push(to,from);
-											printf("\nCONT: 1\n");
+									//		printf("\nCONT: 1\n");
 		return 1;
 	}
 
@@ -614,7 +612,7 @@ int ft_inserton(my_stack *from, int fromi, my_stack *to, int toi)
 	if(cr < crr && cr < besta + bestb)		//merece más la pena rotate
 	{
 		if(fromi < toi)
-		{										printf("\nMATH cr toi: %i\n",toi+1);
+		{									//	printf("\nMATH cr toi: %i\n",toi+1);
 			for (int i = 0; i < fromi; i++)
 			{
 				rr(from,to);
@@ -627,7 +625,7 @@ int ft_inserton(my_stack *from, int fromi, my_stack *to, int toi)
 			}
 		}
 		else
-		{										printf("\nMATH cr fri: %i\n",fromi+1);
+		{								//		printf("\nMATH cr fri: %i\n",fromi+1);
 			for (int i = 0; i < toi; i++)
 			{
 				rr(from,to);
@@ -643,7 +641,7 @@ int ft_inserton(my_stack *from, int fromi, my_stack *to, int toi)
 	else if(crr < cr && crr < besta + bestb)	//merece más la pena reverse
 	{
 		if(fromi < toi)
-		{										printf("\nMATH crr fri: %i\n",toi+1);
+		{							//			printf("\nMATH crr fri: %i\n",toi+1);
 			for (int i = 0; i < fromi; i++)
 			{
 				rr(from,to);
@@ -656,7 +654,7 @@ int ft_inserton(my_stack *from, int fromi, my_stack *to, int toi)
 			}
 		}
 		else
-		{										printf("\nMATH crr fri: %i\n",fromi+1);
+		{						//				printf("\nMATH crr fri: %i\n",fromi+1);
 			for (int i = 0; i < toi; i++)
 			{
 				rr(from,to);
@@ -703,13 +701,13 @@ int ft_inserton(my_stack *from, int fromi, my_stack *to, int toi)
 				cont++;
 			}
 		}
-									printf("\nMATH: no atajos %i\n",besta + bestb+1);
+								//	printf("\nMATH: no atajos %i\n",besta + bestb+1);
 	}
 
 
 
 	push(to,from);cont++;
-											printf("\nCONT: %i\n",cont);
+								//			printf("\nCONT: %i\n",cont);
 
 	return cont;
 }
@@ -730,6 +728,7 @@ int ft_menor3(int a, int b, int c)
 		return b;
 	if(c < b && c < a)
 		return c;
+	return 0;
 }
 
 
@@ -737,30 +736,172 @@ int ft_findpos(int num, my_stack *st)
 {
 	int position = 0;
 
-	if(num > st->max || num > st->min)		//Numeros maximos y minimos
-	{
+//	printf("\nfind_position(num: %i)\n",num);
+
+	if(num > ft_find_max(st) || num < ft_find_max(st))		//Numeros maximos y minimos
+	{									printf("\nfind_position(num: %i)\n",num);
 		for (int i = 0; i < st->last; i++)
 		{
 			position++;		
 			if(st->stack[i] == st->min)
+			{							printf("\nfind_position-1-> %i\n",num);
 				return position;
+			}
 		}
 	}
-
-	
 	
 	if(num < st->stack[0] && num > st->stack[st->last])
-		return position;
+		{							printf("\nfind_position-2-> %i\n",num);
+			return position;
+		}
 	
 	for (int i = 0; i < st->last; i++)
 	{
 		position++;		
 		if(num > st->stack[i] && num < st->stack[i+1])
+		{							printf("\nfind_position-3-> %i\n",num);
 			return position;
+		}
+	}
+
+
+	printf("\nERROR en find position\n");
+	return 1000;
+}
+
+void ft_pushn(my_stack *to, my_stack *from, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		push(to,from);
 	}
 	
-	return -1;
+}
+
+void ft_ord3(my_stack *st)
+{
+	if( st->stack[0] < st->stack[1] &&
+		st->stack[1] > st->stack[2] &&
+		st->stack[2] > st->stack[0])
+			rotate(st);
+	if( st->stack[0] > st->stack[1] &&
+		st->stack[1] > st->stack[2] &&
+		st->stack[2] < st->stack[0])
+			swap(st);
+	if( st->stack[0] > st->stack[1] &&
+		st->stack[1] < st->stack[2] &&
+		st->stack[2] > st->stack[0])
+			swap(st);
+	else if(st->stack[0] < st->stack[1] &&
+			st->stack[1] > st->stack[2] &&
+			st->stack[2] < st->stack[0])
+				reverse(st);
+	else if(st->stack[0] > st->stack[1] &&
+			st->stack[1] < st->stack[2] &&
+			st->stack[2] < st->stack[0])
+				rotate(st);
 }
 
 
+int ft_calculater(my_stack *from, int fromi, my_stack *to, int toi)
+{
+
+	int cont = 0;
+	int ra,rra,rb,rrb,cr,crr,besta,bestb;
+
+	if(fromi == 0 && toi == 0)
+		return 1;
+
+
+
+	ra = fromi;
+	rb = toi;
+	rra = from->last - fromi;
+	rrb = to->last - toi;
+
+	cr  = abs( ra - rb );
+	crr = abs(rra - rrb);
+	besta = abs(ft_menor(ra , rra));
+	bestb = abs(ft_menor(rb , rrb));
+
+	if(cr < crr && cr < besta + bestb)		//merece más la pena rotate
+	{
+		if(fromi < toi)
+		{
+			for (int i = 0; i < fromi; i++)
+				cont++;					
+			for (int i = 0; i < toi - fromi; i++)	
+				cont++;
+		}
+		else
+		{
+			for (int i = 0; i < toi; i++)
+				cont++;
+			for (int i = 0; i < fromi - toi; i++)
+				cont++;		
+		}
+	}
+	else if(crr < cr && crr < besta + bestb)	//merece más la pena reverse
+	{
+		if(fromi < toi)
+		{
+			for (int i = 0; i < fromi; i++)
+				cont++;
+			for (int i = 0; i < toi - fromi; i++)
+				cont++;
+		}
+		else
+		{
+			for (int i = 0; i < toi; i++)
+				cont++;
+			for (int i = 0; i < fromi - toi; i++)
+				cont++;		
+		}
+	}
+	else if(besta + bestb < cr && besta + bestb < crr)	//Sin atajos	
+	{
+		if(ra < rra)
+			for (int i = 0; i < fromi; i++)
+				cont++;
+		else
+			for (int i = 0; i < from->last - fromi; i++)
+				cont++;
+		if(rb < rrb)
+			for (int i = 0; i < toi; i++)
+				cont++;
+		else
+			for (int i = 0; i < to->last - toi; i++)
+				cont++;
+	}
+	cont++;
+	return cont;
+}
+
+void algo_de_ritmo(my_stack *a, my_stack *b)
+{
+
+	int candidato, calc;
+
+											printf("\n push n-3 \n");
+	ft_pushn(b,a,a->size-3);
+											printf("\n ordena3 \n");
+	ft_ord3(a);	
+											printf("\n Algo de ritmo \n");
+	while (b->last >= 0)
+	{
+		candidato = 0;
+		calc = ft_calculater(b,0,a,ft_findpos(b->stack[0],a));
+		for (int i = 0; i <= b->last; i++)
+		{
+			if(ft_calculater(b,i,a,ft_findpos(b->stack[i],a)) < calc)
+			{
+				candidato = i;
+				calc = ft_calculater(b,i,a,ft_findpos(b->stack[i],a));
+			}
+		}
+		ft_inserton(b,candidato,a,ft_findpos(b->stack[candidato],a));
+	}
+	
+	
+}
 

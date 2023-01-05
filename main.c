@@ -16,8 +16,8 @@ int dealer0(int n, my_stack *a, my_stack *b);
 void pasa_media(my_stack *a, my_stack *b);
 
 
-#define A 2
-#define B 26
+#define A 10
+#define B 15
 
 int main(int argc, char **argv)
 {
@@ -45,10 +45,11 @@ int main(int argc, char **argv)
 
 //	pasa_media(&a,&b);
 
-	rollup_b_pushall_3(&a,&b);					//(20)90 (100)1300 (1.000) 120.000
+//	rollup_b_pushall_3(&a,&b);					//(20)90 (100)1300 (1.000) 120.000
 
+	algo_de_ritmo(&a,&b);
 
-
+/*
 	ft_insert(&a,10,&b);
 	ft_insert(&a,0,&b);
 	ft_insert(&a,0,&b);
@@ -70,10 +71,10 @@ int main(int argc, char **argv)
 	ft_insert(&a,0,&b);
 	ft_insert(&a,0,&b);
 	ft_insert(&a,0,&b);
+*/
 
 
-
-	ft_inserton(&a,A,&b,B);
+//	ft_inserton(&a,A,&b,B);
 
 
 
@@ -479,9 +480,9 @@ int dealer(int n, my_stack *a, my_stack *b)
 	return cont;
 }
 
-int ordena3(my_stack *st)
+int ft_ordena3(my_stack *st)
 {
-	if(check(st))
+	if(st->stack[0] < st->stack[1] < st->stack[2])
 		return 0;
 	if(ft_isorder(st))
 	{

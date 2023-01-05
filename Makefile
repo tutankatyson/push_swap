@@ -101,7 +101,7 @@ pelea:
 	./push_swap $(FIGTH_TEST) |./checker_Mac $(FIGTH_TEST)
 
 py10: fclean $(NAME)
-	python3 python_visualizer.py `ruby -e "puts (-4..5).to_a.shuffle.join(' ')"`
+	python3 python_visualizer.py `ruby -e "puts (1..10).to_a.shuffle.join(' ')"`
 
 py20: fclean $(NAME)
 	python3 python_visualizer.py `ruby -e "puts (-9..10).to_a.shuffle.join(' ')"`

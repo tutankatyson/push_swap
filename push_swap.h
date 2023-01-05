@@ -6,7 +6,7 @@
 /*   By: jorsanch <jorsanch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:13:40 by jorsanch          #+#    #+#             */
-/*   Updated: 2023/01/04 22:19:38 by jorsanch         ###   ########.fr       */
+/*   Updated: 2023/01/05 13:16:58 by jorsanch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int algoritmo1_1(my_stack *sta, my_stack *stb);
 int algoritmo2(my_stack *sta, my_stack *stb);
 int algoritmo2_1(my_stack *sta, my_stack *stb);
 int algoritmo2_2(my_stack *sta, my_stack *stb);
-int ordena3(my_stack *st);
+int ft_ordena3(my_stack *st);
 int push_all(my_stack *sta, my_stack *stb);
 int p_s(my_stack *a, my_stack *b);
 int push_swap_up(my_stack *a, my_stack *b);
@@ -110,6 +110,10 @@ int ft_inserton(my_stack *from, int fromi, my_stack *to, int toi);
 int ft_menor(int a, int b);
 int ft_menor3(int a, int b, int c);
 int ft_findpos(int num, my_stack *st);
+
+
+void algo_de_ritmo(my_stack *a, my_stack *b);
+
 
 #endif
 
